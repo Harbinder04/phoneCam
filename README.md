@@ -22,6 +22,7 @@ Then:
    - `http://<laptop-ip>:8090/?token=supersecret`
 3. Press **Start** in mobile page.
    - Sender enforces **minimum 30 FPS** (configurable up to 60 FPS).
+   
 4. Use MJPEG URL on laptop apps:
    - `http://127.0.0.1:8090/mjpeg`
 
