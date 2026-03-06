@@ -186,7 +186,7 @@ func phoneHTML(token string) string {
   <p>Keep this page open to stream camera frames to your laptop.</p>
   <video id="v" autoplay playsinline muted></video>
   <div class="row">
-    <label>FPS <input id="fps" type="number" min="1" max="30" value="12"></label>
+    <label>FPS <input id="fps" type="number" min="30" max="60" value="30"></label>
     <button id="toggle">Start</button>
   </div>
   <small id="status">idle</small>
@@ -238,10 +238,13 @@ func phoneHTML(token string) string {
           return;
         }
       }
-      const intervalMs = Math.max(33, 1000 / Math.max(1, Number(fps.value || 12)));
+      const requestedFPS = Number(fps.value || 30);
+      const appliedFPS = Math.max(30, Math.min(60, requestedFPS));
+      fps.value = String(appliedFPS);
+      const intervalMs = 1000 / appliedFPS;
       timer = setInterval(() => pushFrame().catch(err => status.textContent = err.message), intervalMs);
       e.target.textContent = 'Stop';
-      status.textContent = 'starting...';
+      status.textContent = 'starting at ' + appliedFPS + ' FPS...';
     };
   </script>
 </body>
